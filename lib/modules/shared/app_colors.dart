@@ -10,4 +10,7 @@ class AppColors{
   static const textHint = Color(0xff8E98A3);
 
   static const inputSurface = Color(0xffEAEFF3);
+
+  static const filterButtonBorder = Color(0xFFD8DFE6);
+  static const filterHighlightColor = Color(0xff2188FF);
 }

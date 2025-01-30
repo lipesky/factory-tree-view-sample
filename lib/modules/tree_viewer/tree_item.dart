@@ -12,18 +12,24 @@ class TreeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (data.children.isEmpty) {
+    if(!data.visible){
+      return const SizedBox();
+    }
+    if (!data.children.any((e) => e.visible)) {
       return Padding(
-        padding: isRoot ? EdgeInsets.zero : const EdgeInsets.symmetric(vertical: 8).copyWith(left: 24),
+        padding: const EdgeInsets.all(8).copyWith(left: isRoot ? 0 : 28),
         child: data.headerBuilder(context),
       );
     }
     return ExpansionTile(
       title: data.headerBuilder(context),
       shape: const Border(),
-      tilePadding: const EdgeInsets.only(left: 5, right: 16),
+      tilePadding: const EdgeInsets.only(left: 5, right: 5),
       dense: true,
+      visualDensity: const VisualDensity(vertical: -2, horizontal: VisualDensity.minimumDensity),
       controlAffinity: ListTileControlAffinity.leading,
+      expandedCrossAxisAlignment: CrossAxisAlignment.start,
+      expandedAlignment: Alignment.centerLeft,
       children: data.children
           .map(
             (child) => Container(

@@ -17,8 +17,9 @@ class _TreeViewerState extends State<TreeViewer> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: widget.treeData.map(
           (data) {
             return TreeItem(data: data, isRoot: true);

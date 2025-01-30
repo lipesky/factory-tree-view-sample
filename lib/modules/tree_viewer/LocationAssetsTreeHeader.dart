@@ -7,12 +7,10 @@ import 'package:flutter_svg/svg.dart';
 enum LocationAssetsType { location, asset, component }
 
 class LocationAssetsTreeHeader extends StatefulWidget {
-  final bool isRoot;
   final Asset? asset;
   final Location? location;
 
   const LocationAssetsTreeHeader({
-    this.isRoot = false,
     this.asset,
     this.location,
     super.key,
@@ -39,6 +37,18 @@ class _LocationAssetsTreeHeaderState extends State<LocationAssetsTreeHeader> {
     return LocationAssetsType.asset;
   }
 
+  bool get isEnergy {
+    return widget.asset != null && widget.asset!.sensorType == 'energy';
+  }
+
+  bool get hasAlert {
+    return widget.asset != null && widget.asset!.status == 'alert';
+  }
+
+  bool get isRoot {
+    return (widget.asset?.parentId ?? widget.asset?.locationId ?? widget.location?.parentId) == null;
+  }
+
   String get iconFilePath {
     String filename = 'lib/assets/';
     switch (type) {
@@ -59,15 +69,37 @@ class _LocationAssetsTreeHeaderState extends State<LocationAssetsTreeHeader> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(width: isRoot ? 10 : 0),
         SvgPicture.asset(iconFilePath),
         const SizedBox(width: AppMetrics.defaultSpacing),
-        Expanded(
+        Flexible(
           child: Text(
             (widget.asset?.name ?? widget.location?.name)!,
             overflow: TextOverflow.ellipsis,
           ),
         ),
+        isEnergy
+            ? Padding(
+                padding: const EdgeInsets.only(left: 5, top: 4),
+                child: SvgPicture.asset(
+                  'lib/assets/bolt_indicator.svg',
+                  height: 13,
+                ),
+              )
+            : const SizedBox(),
+        hasAlert
+            ? Container(
+                margin: const EdgeInsets.only(left: 5, top: 5),
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.red,
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }
