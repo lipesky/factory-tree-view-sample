@@ -12,6 +12,7 @@ https://github.com/user-attachments/assets/d86dab1d-6d15-4f51-b37b-c0312b4dcd90
 In this repository, there are two main folders: 
 - app
 - sample_design_system
+  
 'app' folder contains the app main code, which should be installed on phone.
 'sample_design_system' folder contains the app components app uses(like TreeView and FilterButton), and its required classes, datamodels...
  
