@@ -1,0 +1,1 @@
+enum LocationAssetsType { location, asset, component }
